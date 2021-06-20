@@ -8,10 +8,13 @@ const camera = createCamera();
 const renderer = createRenderer(scene, camera);
 const controls = new OrbitControls(camera, renderer.domElement);
 
-const donutObj = createDonut();
+const donut = createDonutObject();
 const [pointLight, ambientLight, lightHelper] = createLights();
 const gridHelper = new Three.GridHelper(200, 50);
-scene.add(donutObj, pointLight, ambientLight, lightHelper, gridHelper);   // Call this function to add objects to the world.
+scene.add(donut, pointLight, ambientLight, lightHelper, gridHelper);   // Call this function to add objects to the world.
+
+updateFrame();
+
 
 
 // Game engine loop.
@@ -21,16 +24,13 @@ function updateFrame() {
   // If we didn't use a callback, and instead just called animate(), then the program would be blocked and would never be able to get to the next frame.
   requestAnimationFrame(updateFrame);
 
-  donutObj.rotation.x += 0.01;
-  donutObj.rotation.y += 0.005;
-  donutObj.rotation.z += 100;
+  donut.rotation.x += 0.01;
+  donut.rotation.y += 0.005;
+  donut.rotation.z += 100;
 
   controls.update();
   renderer.render(scene, camera);
 }
-updateFrame();  // Call function once to begin recursive loop.
-
-
 
 function createScene() {
   return new Three.Scene();
@@ -53,12 +53,13 @@ function createRenderer(scene, camera) {
   return renderer;
 }
 
-function createDonut() {
+function createDonutObject() {
   const geometry = new Three.TorusGeometry(10, 3, 16, 100);
   const material = new Three.MeshStandardMaterial({ color: 0xFF6347, wireframe: false });
   return new Three.Mesh(geometry, material);
 }
 
+// Create lights and helper indicator(s) to view them.
 function createLights() {
   const pointLight = new Three.PointLight(0xffffff);
   pointLight.position.set(5, 5, 5);
