@@ -19,17 +19,17 @@ updateFrame();
 
 // Game engine loop.
 function updateFrame() {
-  // Function recursively calls itself to create game loop.
-  // To do so, it is passed as a call back, so that the browser will call the callback when the next frame is ready.
-  // If we didn't use a callback, and instead just called animate(), then the program would be blocked and would never be able to get to the next frame.
-  requestAnimationFrame(updateFrame);
-
   donut.rotation.x += 0.01;
   donut.rotation.y += 0.005;
   donut.rotation.z += 100;
 
   controls.update();
   renderer.render(scene, camera);
+
+  // Function recursively calls itself to create game loop.
+  // To do so, it is passed as a call back, so that the browser will call the callback when the next frame is ready.
+  // If we didn't use a callback, and instead just called animate(), then the program would be blocked and would never be able to get to the next frame.
+  requestAnimationFrame(updateFrame);
 }
 
 function createScene() {
