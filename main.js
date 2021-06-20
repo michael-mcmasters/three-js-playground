@@ -11,7 +11,7 @@ const controls = new OrbitControls(camera, renderer.domElement);
 const donutObj = createDonut();
 const [pointLight, ambientLight, lightHelper] = createLights();
 const gridHelper = new Three.GridHelper(200, 50);
-scene.add(donutObj, pointLight, ambientLight, lightHelper, gridHelper);
+scene.add(donutObj, pointLight, ambientLight, lightHelper, gridHelper);   // Call this function to add objects to the world.
 
 
 // Game engine loop.
@@ -42,9 +42,10 @@ function createCamera() {
   return camera;
 }
 
+// Function is telling Three.js to render on the <canvas> element.
 function createRenderer(scene, camera) {
   const renderer = new Three.WebGL1Renderer({
-    canvas: document.querySelector("#bg"),
+    canvas: document.querySelector("#background"),
   });
   renderer.setPixelRatio(window.devicePixelRatio);
   renderer.setSize(window.innerWidth, window.innerHeight);
